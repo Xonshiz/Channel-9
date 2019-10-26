@@ -16,5 +16,7 @@ src/Channel_Nine.UWP/obj/Debug/*
 src/Channel_Nine.UWP/obj/*
 src/Channel_Nine.UWP/bin/Debug/*
 src/Channel_Nine.UWP/bin/*
+/src/Channel_Nine/obj/*
+/src/Channel_Nine/bin/*
 *.stamp
 *.pfx

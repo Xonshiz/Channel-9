@@ -1,0 +1,17 @@
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\Channel_Nine.csprojAssemblyReference.cache
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\pages\AllShowPage.xaml.g.cs
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\Channel_Nine.AssemblyInfoInputs.cache
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\Channel_Nine.AssemblyInfo.cs
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\Channel_Nine.dll
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\ref\Channel_Nine.dll
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\Channel_Nine.pdb
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\bin\Debug\netstandard2.0\Channel_Nine.deps.json
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\bin\Debug\netstandard2.0\Channel_Nine.dll
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\bin\Debug\netstandard2.0\ref\Channel_Nine.dll
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\bin\Debug\netstandard2.0\Channel_Nine.pdb
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\pages\ShowDetailsPage.xaml.g.cs
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\pages\SingleEpisodePage.xaml.g.cs
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\pages\VideoPlayerPage.xaml.g.cs
+C:\Users\dkanojia\Documents\GitHub\Channel-9\src\Channel_Nine\obj\Debug\netstandard2.0\XamlC.stamp

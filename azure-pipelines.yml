@@ -70,6 +70,14 @@ jobs:
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '$(solution)'
+  - powershell: |
+    $drive = (Get-Item $Env:BUILD_SOURCESDIRECTORY).PSDrive.Name;
+    $tempPath = Join-Path $drive -ChildPath Temp;
+    New-Item -ItemType "directory" $tempPath;
+    $env:TEMP = $tempPath;
+    $env:TMP = $tempPath;
+    [Environment]::SetEnvironmentVariable('TEMP', $tempPath);
+    [Environment]::SetEnvironmentVariable('TMP', $tempPath);
 
   - task: VSBuild@1
     inputs:

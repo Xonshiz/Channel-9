@@ -15,6 +15,7 @@ namespace Channel_Nine.pages
     public partial class ShowDetailsPage : ContentPage
     {
         private string showId;
+        private int _currentPage = 1;
         private ShowDetail showDetail;
 
         public ShowDetailsPage(string showId)
@@ -29,7 +30,7 @@ namespace Channel_Nine.pages
             base.OnAppearing();
             if (this.episodeCollection.ItemsSource == null)
             {
-                ShowDetails showDetails = new ShowDetails(this.showId);
+                ShowDetails showDetails = new ShowDetails(this.showId, this._currentPage);
                 this.showDetail = await showDetails.getAllContent();
                 showTitleLabel.Text = this.showDetail.showTitle;
                 // Would suggest that we change this from SHOWS class to List<Episode>. Because it's a list of EPISODES.

@@ -14,6 +14,7 @@ namespace Channel_Nine.pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AllShowPage : ContentPage
     {
+        private int _currentPage = 1;
         public AllShowPage()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace Channel_Nine.pages
             base.OnAppearing();
             if (mainCollection.ItemsSource == null)
             {
-                AllShows allShows = new AllShows();
+                AllShows allShows = new AllShows(this._currentPage);
                 Shows shows = await allShows.getAllContent();
                 mainCollection.ItemsSource = shows.result;
             }

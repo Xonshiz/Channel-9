@@ -23,22 +23,24 @@ namespace Channel_Nine.html_parsers
         private Shows _allShows;
         private string _showId, _showDescription, _showTitle;
         private List<Authors> _showAuthors;
-        private int _currentPage = 1, _totalPages = 2619;
+        private int _currentPage = 1, _totalPages = 1;
         private ObservableCollection<Show> _singleResultCollection = new ObservableCollection<Show>();
 
-        public ShowDetails(string showId)
+        public ShowDetails(string showId, int current_page = 1)
         {
             //getWebPage = new GetWebPage();
             _show = new ShowDetail();
             _allShows = new Shows();
             _showAuthors = new List<Authors>();
             this._showId = showId;
+            this._currentPage = current_page;
         }
 
         public async Task<ShowDetail> getAllContent()
         {
+            string parameters = "?page=" + this._currentPage.ToString();
             // This method will be publicly visible and will be the one consumed.
-            string response = await GetWebPage.GetWebPageData(Common.ServiceUrls.showUrl + this._showId); // Make a network call here to grab the content
+            string response = await GetWebPage.GetWebPageData(Common.ServiceUrls.showUrl + this._showId + parameters); // Make a network call here to grab the content
             extractData(response);
             PopulateAllShow();
             PopulateShowDetail();
@@ -52,6 +54,23 @@ namespace Channel_Nine.html_parsers
             var doc = new HtmlDocument();
             var _doc = new HtmlDocument();
             doc.LoadHtml(response);
+            try
+            {
+                this._currentPage = Convert.ToInt32(doc.DocumentNode.SelectSingleNode("//span[@class='selected']").InnerText.ToString().Trim());
+            }
+            catch (Exception)
+            {
+                this._currentPage = 1;
+            }
+            try
+            {
+                this._totalPages = Convert.ToInt32(doc.DocumentNode.SelectSingleNode("//li[@class='next']/a").InnerText.ToString().Trim());
+            }
+            catch (Exception)
+            {
+                // 1 by default should be the last page if anything fails. We don't want index out of bound errors.
+                this._totalPages = 1;
+            }
             var authors = doc.DocumentNode.SelectNodes("//figure[@role='presentation']");
 
             if (authors != null)
@@ -66,12 +85,19 @@ namespace Channel_Nine.html_parsers
                 }
             }
 
-            var latest_episode = doc.DocumentNode.SelectSingleNode("//article[@class='abstract xLarge latest']");
-            var _episodeTitle = latest_episode.SelectSingleNode("//a[@class='tile']/img").Attributes["alt"].Value.Replace("&#160;", " ").Trim();
-            var _episodeLanguage = latest_episode.Attributes["lang"].Value;
-            var _episodeUrl = Common.ServiceUrls.baseUrl.Remove(Common.ServiceUrls.baseUrl.Length - 1, 1) + latest_episode.SelectSingleNode("//a[@class='tile']").Attributes["href"].Value;
-            var _episodeThumbnail = latest_episode.SelectSingleNode("//a/img").Attributes["src"].Value;
-            PopulateEpisodeList("1", _episodeLanguage.ToString(), _episodeThumbnail.ToString(), _episodeTitle.ToString(), _episodeUrl.ToString());
+            try
+            {
+                var latest_episode = doc.DocumentNode.SelectSingleNode("//article[@class='abstract xLarge latest']");
+                var _episodeTitle = latest_episode.SelectSingleNode("//a[@class='tile']/img").Attributes["alt"].Value.Replace("&#160;", " ").Trim();
+                var _episodeLanguage = latest_episode.Attributes["lang"].Value;
+                var _episodeUrl = Common.ServiceUrls.baseUrl.Remove(Common.ServiceUrls.baseUrl.Length - 1, 1) + latest_episode.SelectSingleNode("//a[@class='tile']").Attributes["href"].Value;
+                var _episodeThumbnail = latest_episode.SelectSingleNode("//a/img").Attributes["src"].Value;
+                PopulateEpisodeList("1", _episodeLanguage.ToString(), _episodeThumbnail.ToString(), _episodeTitle.ToString(), _episodeUrl.ToString());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No Latest Show");
+            }
 
             try
             {

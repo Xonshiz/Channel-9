@@ -11,6 +11,8 @@
         <Label x:Name="myLable" Text="Welcome to Xamarin.Forms!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
+        <Entry x:Name="SearchEntry" />
+        <Button Clicked="SearchButton_Clicked" />
     </StackLayout>
 
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using Channel_Nine.html_parsers;
 using Channel_Nine.models.AllContent;
+using Channel_Nine.models.SearchResults;
 using Channel_Nine.models.Shows;
 using Channel_Nine.models.SingleEpisode;
 using System;
@@ -35,11 +36,19 @@ namespace Channel_Nine
             //ShowDetails showDetails = new ShowDetails("XamarinShow");
             //ShowDetail sup = await showDetails.getAllContent();
 
-            //VideoDetails showDetails = new VideoDetails("XamarinShow", "XamarinForms-101-Getting-to-Know-your-XAML-Workspace-Visual-Studio-2019-for-Mac");
-            VideoDetails showDetails = new VideoDetails("XamarinShow", "XamRight-Richer-Safer-XAML-Coding-Experience--The-Xamarin-Show");
-            SingleEpisode sup = await showDetails.getAllContent();
+            ////VideoDetails showDetails = new VideoDetails("XamarinShow", "XamarinForms-101-Getting-to-Know-your-XAML-Workspace-Visual-Studio-2019-for-Mac");
+            //VideoDetails showDetails = new VideoDetails("XamarinShow", "XamRight-Richer-Safer-XAML-Coding-Experience--The-Xamarin-Show");
+            //SingleEpisode sup = await showDetails.getAllContent();
 
-            Console.WriteLine("Value of sup : " + sup);
+            //Console.WriteLine("Value of sup : " + sup);
+        }
+
+        private async void SearchButton_Clicked(object sender, EventArgs e)
+        {
+            GetSearchResult getSearchResult = new GetSearchResult(SearchEntry.Text);
+            var searchResult = getSearchResult.getAllContent();
+            await DisplayAlert(searchResult.Result.id, searchResult.Result.total.ToString(), "ok");
+            await DisplayAlert("Title", searchResult.Result.data[0].ToString(), "ok");
         }
     }
 }

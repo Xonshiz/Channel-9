@@ -12,19 +12,21 @@ namespace Channel_Nine.html_parsers
     class AllShows
     {
         private Shows _allShows;
-        private int _currentPage = 1, _totalPages = 2619;
+        private int _currentPage = 1, _totalPages = 121;
         private ObservableCollection<Show> _singleResultCollection = new ObservableCollection<Show>();
         //private GetWebPage getWebPage;
 
-        public AllShows()
+        public AllShows(int current_page = 1)
         {
             _allShows = new Shows();
+            this._currentPage = current_page;
             //getWebPage = new GetWebPage();
         }
         public async Task<Shows> getAllContent()
         {
             // This method will be publicly visible and will be the one consumed.
-            string response = await GetWebPage.GetWebPageData(Common.ServiceUrls.allShowsUrl); // Make a network call here to grab the content
+            string parameters = "?page=" + this._currentPage.ToString();
+            string response = await GetWebPage.GetWebPageData(Common.ServiceUrls.allShowsUrl + parameters); // Make a network call here to grab the content
             extractData(response);
             PopulateAllContentResult();
             return this._allShows;
@@ -37,6 +39,23 @@ namespace Channel_Nine.html_parsers
             var doc = new HtmlDocument();
             var _doc = new HtmlDocument();
             doc.LoadHtml(response);
+            try
+            {
+                this._currentPage = Convert.ToInt32(doc.DocumentNode.SelectSingleNode("//span[@class='selected']").InnerText.ToString().Trim());
+            }
+            catch (Exception)
+            {
+                this._currentPage = 1;
+            }
+            try
+            {
+                this._totalPages = Convert.ToInt32(doc.DocumentNode.SelectSingleNode("//li/span[@class='selected']/a").InnerText.ToString().Trim());
+            }
+            catch (Exception)
+            {
+                //At the time of creating this tool, 121 was the total count. It can't be less that this (HOPEFULLY).
+                this._totalPages = 121;
+            }
             var articles = doc.DocumentNode.SelectNodes("//article[contains(@class,'abstract xSmall noVideo')]");
             int i = 1;
             foreach (HtmlNode node in articles)

@@ -2,6 +2,7 @@
 using Channel_Nine.models.Shows;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,21 +15,29 @@ namespace Channel_Nine.pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AllShowPage : ContentPage
     {
-        private int _currentPage = 1;
+        private int _currentPage = 0;
+        private AllShows allShows;
+        private Shows shows;
+        private ObservableCollection<Show> resultList = new ObservableCollection<Show>() { };
         public AllShowPage()
         {
             InitializeComponent();
         }
 
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             if (mainCollection.ItemsSource == null)
             {
-                AllShows allShows = new AllShows(this._currentPage);
-                Shows shows = await allShows.getAllContent();
-                mainCollection.ItemsSource = shows.result;
+                allShows = new AllShows();
+                getMoreResults();
+                setListViewBinding();
             }
+        }
+
+        private void setListViewBinding()
+        {
+            mainCollection.ItemsSource = this.resultList;
         }
 
         private void mainCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -42,6 +51,15 @@ namespace Channel_Nine.pages
         {
             this.Navigation.PopAsync();
             return base.OnBackButtonPressed();
+        }
+
+        async void getMoreResults(object sender = null, EventArgs e = null)
+        {
+            shows = await allShows.getAllContent(this._currentPage + 1);
+            foreach (Show show in shows.result)
+            {
+                resultList.Add(show);
+            }
         }
     }
 }

@@ -6,7 +6,11 @@
              mc:Ignorable="d"
              x:Class="Channel_Nine.pages.AllShowPage">
     <StackLayout>
-        <CollectionView x:Name="mainCollection" SelectionChanged="mainCollection_SelectionChanged" SelectionMode="Single">
+        <CollectionView x:Name="mainCollection" 
+                        SelectionChanged="mainCollection_SelectionChanged" 
+                        SelectionMode="Single"
+                        RemainingItemsThreshold="5"
+                        RemainingItemsThresholdReached="getMoreResults">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10">

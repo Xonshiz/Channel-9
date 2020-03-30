@@ -16,16 +16,16 @@ namespace Channel_Nine.html_parsers
         private ObservableCollection<Show> _singleResultCollection = new ObservableCollection<Show>();
         //private GetWebPage getWebPage;
 
-        public AllShows(int current_page = 1)
+        public AllShows()
         {
             _allShows = new Shows();
-            this._currentPage = current_page;
             //getWebPage = new GetWebPage();
         }
-        public async Task<Shows> getAllContent()
+        public async Task<Shows> getAllContent(int current_page = 1)
         {
+            this._currentPage = current_page;
             // This method will be publicly visible and will be the one consumed.
-            string parameters = "?page=" + this._currentPage.ToString();
+            string parameters = "?page=" + current_page.ToString();
             string response = await GetWebPage.GetWebPageData(Common.ServiceUrls.allShowsUrl + parameters); // Make a network call here to grab the content
             extractData(response);
             PopulateAllContentResult();

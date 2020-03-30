@@ -11,8 +11,8 @@ namespace Channel_Nine
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
-            //MainPage = new NavigationPage(new AllShowPage());
+            //MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new AllShowPage());
         }
 
         protected override void OnStart()
